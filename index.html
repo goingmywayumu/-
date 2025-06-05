@@ -8,6 +8,34 @@
 <body>
   <h1>メメントモリ キャラクター検索</h1>
   <input type="text" id="searchInput" placeholder="キャラ名で検索...">
+  <label>属性：
+  <select id="attributeFilter">
+    <option value="">すべて</option>
+    <option value="火">火</option>
+    <option value="水">水</option>
+    <option value="風">風</option>
+    <option value="光">光</option>
+    <option value="闇">闇</option>
+  </select>
+</label>
+
+<label>武器：
+  <select id="weaponFilter">
+    <option value="">すべて</option>
+    <option value="剣">剣</option>
+    <option value="弓">弓</option>
+    <option value="槍">槍</option>
+    <option value="魔法">魔法</option>
+  </select>
+</label>
+
+<label>ソート：
+  <select id="sortOption">
+    <option value="name">名前順</option>
+    <option value="cv">CV順</option>
+  </select>
+</label>
+
   <div id="characterList"></div>
 
   <script src="characters.js"></script>
