@@ -1,4 +1,7 @@
 const searchInput = document.getElementById("searchInput");
+const attributeFilter = document.getElementById("attributeFilter");
+const weaponFilter = document.getElementById("weaponFilter");
+const sortOption = document.getElementById("sortOption");
 const characterList = document.getElementById("characterList");
 
 function displayCharacters(list) {
@@ -17,14 +20,33 @@ function displayCharacters(list) {
   });
 }
 
-searchInput.addEventListener("input", () => {
+function updateList() {
   const keyword = searchInput.value.toLowerCase();
-  const filtered = characters.filter(c =>
-    c.name.toLowerCase().includes(keyword)
-  );
+  const attr = attributeFilter.value;
+  const weapon = weaponFilter.value;
+  const sort = sortOption.value;
+
+  let filtered = characters.filter(c => {
+    const matchesName = c.name.toLowerCase().includes(keyword);
+    const matchesAttr = !attr || c.attribute === attr;
+    const matchesWeapon = !weapon || c.weapon === weapon;
+    return matchesName && matchesAttr && matchesWeapon;
+  });
+
+  if (sort === "name") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sort === "cv") {
+    filtered.sort((a, b) => a.cv.localeCompare(b.cv));
+  }
+
   displayCharacters(filtered);
-});
+}
+
+searchInput.addEventListener("input", updateList);
+attributeFilter.addEventListener("change", updateList);
+weaponFilter.addEventListener("change", updateList);
+sortOption.addEventListener("change", updateList);
 
 window.onload = () => {
-  displayCharacters(characters);
+  updateList();
 };
